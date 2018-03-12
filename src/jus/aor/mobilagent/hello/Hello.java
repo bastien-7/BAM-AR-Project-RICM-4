@@ -20,6 +20,7 @@ public class Hello extends Agent{
 	  * construction d'un agent de type hello.
 	  * @param args aucun argument n'est requis
 	  */
+	
 	 public Hello(Object... args) {
 		 // ....
 	 }
