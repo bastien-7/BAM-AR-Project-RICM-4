@@ -14,5 +14,5 @@ public interface _Annuaire extends Remote{
 	 * @param abonne l'abonné
 	 * @return le numéro de télephone de l'abonné
 	 */
-	public Numero get(String abonne);
+	public Numero get(String abonne) throws RemoteException;
 }

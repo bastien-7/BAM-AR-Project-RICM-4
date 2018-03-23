@@ -17,7 +17,7 @@ import org.xml.sax.SAXException;
 
 public class Chaine extends java.rmi.server.UnicastRemoteObject implements _Chaine {
 
-	public Chaine() throws RemoteException {
+	protected Chaine() throws RemoteException {
 		super();
 		// TODO Auto-generated constructor stub
 	}
@@ -26,7 +26,7 @@ public class Chaine extends java.rmi.server.UnicastRemoteObject implements _Chai
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
-	public List<Hotel> hotels;
+	public List<Hotel> hotels = new ArrayList<>();
 	
 	
 	@Override

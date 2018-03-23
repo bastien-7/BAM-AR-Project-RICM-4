@@ -37,8 +37,11 @@ public class LookForHotel{
 			_Chaine obj = (_Chaine) java.rmi.Naming.lookup("//localhost:"+(port+i)+"/BAM-RMI");
 			chaines.add(obj);			
 		}
+		System.out.println("Les chaines trouvés : " + chaines.size());
+
 		this.annuaire = (_Annuaire) java.rmi.Naming.lookup("//localhost:2003/BAM-RMI");
-		
+		System.out.println("Les annuaires trouvés : " + annuaire.toString());
+
 		
 	}
 	/**
@@ -46,7 +49,7 @@ public class LookForHotel{
 	 * @return la durée de l'interrogation
 	 * @throws RemoteException
 	 */
-	public long call() {
+	public long call() throws RemoteException {
 		// ...
 		long debut = System.currentTimeMillis();
 		
@@ -56,6 +59,8 @@ public class LookForHotel{
 			hotels_a_ajouter = (ArrayList<Hotel>) chaines.get(i).get(localisation);
 			hotels.addAll(hotels_a_ajouter);			
 		}
+		
+		System.out.println("Les hotels trouvés : " + hotels.size());
 		
 		for (int i = 0; i< hotels.size(); i++) {
 			Numero n = this.annuaire.get(hotels.get(i).name);
