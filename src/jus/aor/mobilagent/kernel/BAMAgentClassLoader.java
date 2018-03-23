@@ -15,4 +15,17 @@ public class BAMAgentClassLoader extends ClassLoader{
 			System.out.println("BAMAgentClassLoader : charge class "+ent.getKey());
 		}
 	}
+	
+	public BAMAgentClassLoader(ClassLoader parent) {
+		// TODO Auto-generated constructor stub
+		super(parent);
+	}
+	
+	public void integrateCode(Jar my_jar) {
+		while (my_jar.iterator().hasNext()) {
+			Entry<String,byte[]> ent = my_jar.iterator().next();
+			defineClass(ent.getKey(),ent.getValue(),0,ent.getValue().length);
+			System.out.println("BAMAgentClassLoader : charge class "+ent.getKey());
+		}
+	}
 }
