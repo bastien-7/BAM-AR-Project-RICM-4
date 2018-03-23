@@ -7,9 +7,8 @@ public class Annuaire extends java.rmi.server.UnicastRemoteObject implements _An
 
 	private String abonne;
 	
-	protected Annuaire(String abonne) throws RemoteException {
+	public Annuaire() throws RemoteException {
 		super();
-		this.abonne = abonne;
 		// TODO Auto-generated constructor stub
 	}
 
