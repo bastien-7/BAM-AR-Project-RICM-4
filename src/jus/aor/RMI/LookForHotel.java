@@ -3,6 +3,12 @@
  */
 package jus.aor.RMI;
 
+import java.net.MalformedURLException;
+import java.rmi.NotBoundException;
+import java.rmi.RemoteException;
+import java.util.ArrayList;
+import java.util.HashMap;
+
 /**
  * Représente un client effectuant une requête lui permettant d'obtenir les numéros de téléphone des hôtels répondant à son critère de choix.
  * @author  Morat
@@ -10,14 +16,30 @@ package jus.aor.RMI;
 public class LookForHotel{
 	/** le critère de localisaton choisi */
 	private String localisation;
+	private int port = 1099;
+	private ArrayList<_Chaine> chaines = new ArrayList<>();
+	private ArrayList<Hotel> hotels = new ArrayList<>();
+	private _Annuaire annuaire;
+	private HashMap<String, Numero> numero_hotel = new HashMap<>();
 	// ...
 	/**
 	 * Définition de l'objet représentant l'interrogation.
 	 * @param args les arguments n'en comportant qu'un seul qui indique le critère
 	 *          de localisation
+	 * @throws RemoteException 
+	 * @throws NotBoundException 
+	 * @throws MalformedURLException 
 	 */
-	public LookForHotel(String... args){
+	public LookForHotel(String[] args) throws RemoteException, MalformedURLException, NotBoundException{
 		localisation = args[0];
+		
+		for (int i = 0; i<4; i++) {
+			_Chaine obj = (_Chaine) java.rmi.Naming.lookup("//localhost:"+(port+i)+"/BAM-RMI");
+			chaines.add(obj);			
+		}
+		this.annuaire = (_Annuaire) java.rmi.Naming.lookup("//localhost:2003/BAM-RMI");
+		
+		
 	}
 	/**
 	 * réalise une intérrogation
@@ -26,6 +48,33 @@ public class LookForHotel{
 	 */
 	public long call() {
 		// ...
+		long debut = System.currentTimeMillis();
+		
+		ArrayList<Hotel> hotels_a_ajouter;
+		
+		for (int i =0; i<4; i++) {
+			hotels_a_ajouter = (ArrayList<Hotel>) chaines.get(i).get(localisation);
+			hotels.addAll(hotels_a_ajouter);			
+		}
+		
+		for (int i = 0; i< hotels.size(); i++) {
+			Numero n = this.annuaire.get(hotels.get(i).name);
+			numero_hotel.put(hotels.get(i).name, n);
+		}
+		
+		long fin = System.currentTimeMillis();
+		
+		System.out.println("Les numéros trouvés : " + numero_hotel.size());
+
+		
+		return fin-debut;
+	}
+	
+	public static void main(String[] args) throws RemoteException, MalformedURLException, NotBoundException {
+		LookForHotel lfh = new LookForHotel(args);
+		
+		long duree = lfh.call();
+		System.out.println("durée du call : " + duree);
 	}
 
 	// ...
