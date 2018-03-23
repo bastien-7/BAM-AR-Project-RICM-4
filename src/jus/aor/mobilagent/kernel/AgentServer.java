@@ -61,7 +61,9 @@ final class AgentServer {
 		AgentInputStream ais = new AgentInputStream(is,loader);
 		
 		Jar j = (Jar)ais.readObject();
-		//integratecode du clas loader
+		loader.integrateCode(j);
+		
+		Agent agent = (Agent)ais.readObject();
 	}
 
 	/**
