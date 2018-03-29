@@ -14,9 +14,6 @@ public class BAMServerClassLoader extends URLClassLoader{
 		super(urls,loader);
 	}
 
-	public BAMServerClassLoader(URL[] urls, ClassLoader loader) {
-		super(urls,loader);
-	}
 
 	@Override
 	public void addURL(URL url) {
