@@ -11,7 +11,8 @@ import java.io.Serializable;
  */
 public interface _Action extends Serializable{
 	/** l'action vide */
-	public static final _Action NIHIL =/*A COMPLETER*/; 
+
+	public static final _Action NIHIL;		/*A COMPLETER*/; 
 	/**
 	 * Exécute l'action
 	 */
