@@ -25,25 +25,28 @@ public static void main(final String args[]) {
 		System.setSecurityManager(new SecurityManager());
 	}*/
 	
-	
+	System.out.println("Server launched");
     //  Mise en place du Registery
     try{
-    	Registry registry;
+//    	Registry registry;
     	for (int i = 0; i < 4; i++) {
             LocateRegistry.createRegistry(port+i);
             _Chaine chaine = new Chaine();
             ((Chaine) chaine).Recuperation_hotel("DataStore/Hotels"+(i+1)+".xml");
         	java.rmi.Naming.bind("//localhost:"+(port+i)+"/BAM-RMI", chaine );
-		}
+        	System.out.println("Chaine n°" + i + " registry created : //localhost:"+(port+i)+"/BAM-RMI\n");
+        	}
     	LocateRegistry.createRegistry(2003);
     	_Annuaire annuaire = new Annuaire();
     	((Annuaire) annuaire).recupAnnuaire("DataStore/Annuaire.xml");
     	java.rmi.Naming.bind("//localhost:2003"+"/BAM-RMI", annuaire);
+    	System.out.println("Annuaire registry created: //localhost:2003"+"/BAM-RMI\n");
+//        System.out.println(java.rmi.Naming.list("BAM-RMI"));
+
     }
     catch(Exception e){
     	System.out.println("Registry creation impossible in Server");
     	e.printStackTrace();
     }	
-
 	}
 }
