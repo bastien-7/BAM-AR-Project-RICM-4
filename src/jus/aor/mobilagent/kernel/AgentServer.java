@@ -14,7 +14,7 @@ import java.net.*;
  * 
  * @author Morat
  */
-final class AgentServer {
+final class AgentServer implements Runnable{
 	/** le logger de ce serveur */
 	private Logger logger;
 	/** La table des services utilisables sur ce serveur */
@@ -48,22 +48,36 @@ final class AgentServer {
 
 	/**
 	 * le lancement du serveur
-	 * 
-	 * @throws IOException
-	 * @throws ClassNotFoundException
 	 */
-	void run() throws IOException, ClassNotFoundException {
+	public void run() {
 		// A COMPLETER
 		//Reception-Envoi des agents
-		Socket client = s.accept();
-		InputStream is = client.getInputStream();
-		BAMAgentClassLoader loader = new BAMAgentClassLoader(this.getClass().getClassLoader());
-		AgentInputStream ais = new AgentInputStream(is,loader);
+		Socket client;
+		try {
+			//TODO a modif
+			while(true) {
+				client = s.accept();
+				InputStream is = client.getInputStream();
+				BAMAgentClassLoader loader = new BAMAgentClassLoader(this.getClass().getClassLoader());
+				AgentInputStream ais = new AgentInputStream(is,loader);
+				
+				Jar j = (Jar)ais.readObject();
+				loader.integrateCode(j);
+				
+				Agent agent = (Agent)ais.readObject();
+				agent.reInit(this,this.name);
+				new Thread(agent).start();
+				client.close();
+			}
+			
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (ClassNotFoundException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 		
-		Jar j = (Jar)ais.readObject();
-		loader.integrateCode(j);
-		
-		Agent agent = (Agent)ais.readObject();
 	}
 
 	/**

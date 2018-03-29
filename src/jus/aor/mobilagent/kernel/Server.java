@@ -18,7 +18,7 @@ import jus.aor.mobilagent.kernel._Agent;
  * Le serveur principal permettant le lancement d'un serveur d'agents mobiles et les fonctions permettant de déployer des services et des agents.
  * @author     Morat
  */
-public final class Server {
+public final class Server implements _Server{
 	/** le nom logique du serveur */
 	protected String name;
 	/** le port où sera ataché le service du bus à agents mobiles. Pafr défaut on prendra le port 10140 */
@@ -31,7 +31,7 @@ public final class Server {
 	protected Logger logger=null;
 	/**
 	 * Démarre un serveur de type mobilagent 
-	 * @param port le port d'écuote du serveur d'agent 
+	 * @param port le port d'écoute du serveur d'agent 
 	 * @param name le nom du serveur
 	 */
 	public Server(final int port, final String name){
@@ -42,7 +42,9 @@ public final class Server {
 			loggerName = "jus/aor/mobilagent/"+InetAddress.getLocalHost().getHostName()+"/"+this.name;
 			logger=Logger.getLogger(loggerName);
 			/* démarrage du server d'agents mobiles attaché à cette machine */
-			//A COMPLETER
+			this.agentServer = new AgentServer(this.port,this.name);
+			new Thread(this.agentServer).start();
+			
 			/* temporisation de mise en place du server d'agents */
 			Thread.sleep(1000);
 		}catch(Exception ex){
@@ -59,7 +61,8 @@ public final class Server {
 	 */
 	public final void addService(String name, String classeName, String codeBase, Object... args) {
 		try {
-			//A COMPLETER
+			//TODO
+//			agentServer.addService(name, );
 		}catch(Exception ex){
 			logger.log(Level.FINE," erreur durant le lancement du serveur"+this,ex);
 			return;
@@ -75,7 +78,7 @@ public final class Server {
 	 */
 	public final void deployAgent(String classeName, Object[] args, String codeBase, List<String> etapeAddress, List<String> etapeAction) {
 		try {
-			//A COMPLETER en terme de startAgent
+			//TODO en terme de startAgent
 		}catch(Exception ex){
 			logger.log(Level.FINE," erreur durant le lancement du serveur"+this,ex);
 			return;
@@ -89,6 +92,6 @@ public final class Server {
 	 * @throws Exception
 	 */
 	protected void startAgent(_Agent agent, BAMAgentClassLoader loader) throws Exception {
-		//A COMPLETER
+		//TODO
 	}
 }

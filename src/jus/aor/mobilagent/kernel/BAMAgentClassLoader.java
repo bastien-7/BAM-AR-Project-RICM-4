@@ -17,7 +17,6 @@ public class BAMAgentClassLoader extends ClassLoader{
 	}
 	
 	public BAMAgentClassLoader(ClassLoader parent) {
-		// TODO Auto-generated constructor stub
 		super(parent);
 	}
 	
@@ -28,4 +27,15 @@ public class BAMAgentClassLoader extends ClassLoader{
 			System.out.println("BAMAgentClassLoader : charge class "+ent.getKey());
 		}
 	}
+	
+	//TODO
+	public Jar extractCode() {
+		return null;
+		
+	}
+	
+	private String className(String s) {
+		return s;
+	}
+	
 }

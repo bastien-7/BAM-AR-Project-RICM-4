@@ -42,6 +42,8 @@ public class Starter{
 	/**
 	 * 
 	 * @param args
+	 * args[0] : fichier conf
+	 * args[1] : nom du serveur
 	 */
 	public Starter(String... args){
 		// récupération du niveau de log
@@ -75,6 +77,7 @@ public class Starter{
 			return;
 		}
 	}
+	
 	@SuppressWarnings("unchecked")
 	protected void createServer(int port, String name) throws MalformedURLException, ClassNotFoundException, InstantiationException, IllegalAccessException, IllegalArgumentException, InvocationTargetException, NoSuchMethodException, SecurityException {
 		loader = new BAMServerClassLoader(new URL[]{new URL("file:///.../MobilagentServer.jar")},this.getClass().getClassLoader());
