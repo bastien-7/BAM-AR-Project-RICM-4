@@ -54,7 +54,8 @@ class Route implements Iterable<Etape>, Serializable {
 	 * @return la prochaine étape.
 	 */
 	Etape get() throws NoSuchElementException {
-		// A COMPLETER
+		//TODO
+		return null;
 	}
 
 	/**
@@ -64,7 +65,8 @@ class Route implements Iterable<Etape>, Serializable {
 	 * @return la prochaine étape.
 	 */
 	Etape next() throws NoSuchElementException {
-		// A COMPLETER
+		//TODO
+		return null;
 	}
 
 	/**
