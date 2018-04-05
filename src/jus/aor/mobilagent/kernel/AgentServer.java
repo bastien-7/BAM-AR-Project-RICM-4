@@ -50,11 +50,9 @@ final class AgentServer implements Runnable{
 	 * le lancement du serveur
 	 */
 	public void run() {
-		// A COMPLETER
 		//Reception-Envoi des agents
 		Socket client;
 		try {
-			//TODO a modif
 			while(true) {
 				client = s.accept();
 				InputStream is = client.getInputStream();
@@ -130,9 +128,17 @@ final class AgentServer implements Runnable{
 			return null;
 		}
 	}
-	private _Agent getAgent(Socket sock){
-		return null;
-		//TODO
+	
+	private _Agent getAgent(Socket sock) throws ClassNotFoundException, IOException{
+		
+		BAMAgentClassLoader BAMACL = new BAMAgentClassLoader(this.getClass().getClassLoader());
+		InputStream IS = sock.getInputStream();
+		ObjectInputStream OIS = new ObjectInputStream(IS);
+		AgentInputStream AIS = new AgentInputStream(IS, BAMACL);
+		
+		Jar MyJar = (Jar) OIS.readObject();
+		BAMACL.integrateCode(MyJar);
+		return (_Agent) AIS.readObject() ;
 		
 	}
 }
