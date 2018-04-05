@@ -12,7 +12,20 @@ import java.io.Serializable;
 public interface _Action extends Serializable{
 	/** l'action vide */
 
-	public static final _Action NIHIL;		/*A COMPLETER*/; 
+	public static final _Action NIHIL = new _Action() {
+
+		@Override
+		public void execute() {
+			System.out.println("Execute NIHIL");
+		}
+		
+		public String toString() {
+			return new String("_Action : NIHIL");
+		}
+		
+	};
+	
+	
 	/**
 	 * Exécute l'action
 	 */
