@@ -8,14 +8,21 @@ public class Agent implements _Agent{
 	private Route route;
 	private AgentServer as;
 	
-	//TODO
+	
 	public Agent(Object... args) {
 		
 	}
 	
 	@Override
 	public void run() {
-		// TODO Stub de la méthode généré automatiquement
+		System.out.println("Run ! ");
+		if(route.hasNext()){
+			Etape e = route.next();
+			e.action.execute();
+			if(route.hasNext()){
+				move();
+			}
+		}
 		
 	}
 	
@@ -26,20 +33,17 @@ public class Agent implements _Agent{
 	 */
 	@Override
 	public void init(AgentServer agentServer, String serverName) {
-		// TODO Stub de la méthode généré automatiquement
 		as = agentServer;
 		try {
 			route = new Route(new Etape(new URI(serverName),new _Action() {
 
 				@Override
 				public void execute() {
-					// TODO Auto-generated method stub
 					System.out.println("J'effectue une action");
 				}
 				
 			}));
 		} catch (URISyntaxException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 	}
@@ -48,12 +52,19 @@ public class Agent implements _Agent{
 	 * Initialise l'agent lors de son déploiement sur un des serveurs du bus.
 	 * @param server le server actuel pour cet agent
 	 * @param serverName le nom logique du serveur d'agent
+	 * @throws URISyntaxException 
 	 * @throws UnknownHostException 
 	 */
 	@Override
-	public void reInit(AgentServer server, String serverName) {
-		// TODO Stub de la méthode généré automatiquement
-		
+	public void reInit(AgentServer server, String serverName) throws URISyntaxException {
+		this.as = server;
+		route = new Route(new Etape(new URI(serverName),new _Action() {
+			@Override
+			public void execute() {
+				System.out.println("J'effectue une action");
+			}
+			
+		}));
 	}
 
 	@Override
@@ -74,11 +85,20 @@ public class Agent implements _Agent{
 	
 	//TODO
 	private void move() {
+		move(route.get().server);
 	}
 	
 	//TODO
 	protected String route() {
 		return null;
 	}
-
+	
+	protected void move(URI url) {
+		//TODO
+	}
+	
+	public String toString(){
+		return null;
+		//TODO
+	}
 }

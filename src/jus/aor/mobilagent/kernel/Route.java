@@ -49,13 +49,22 @@ class Route implements Iterable<Etape>, Serializable {
 	}
 
 	/**
-	 * Restitue la prochaine étape ou la dernière qui est la base de départ.
-	 * 
+	 * Restitue la prochaine étape ou la dernière qui est la base de départ
+	 *
 	 * @return la prochaine étape.
 	 */
 	Etape get() throws NoSuchElementException {
-		//TODO
-		return null;
+		if(hasNext){
+			if(route.size() > 0){
+				return route.get(0);
+			}	
+			else {
+				return retour;
+			}
+		}
+		else {
+			throw new NoSuchElementException() ;
+		}
 	}
 
 	/**
@@ -65,8 +74,21 @@ class Route implements Iterable<Etape>, Serializable {
 	 * @return la prochaine étape.
 	 */
 	Etape next() throws NoSuchElementException {
-		//TODO
-		return null;
+		Etape Next;
+		if(hasNext){
+			if(route.size() > 0){
+				Next = route.get(0);
+				route.remove(0);
+				return Next;
+			}
+			else {
+				hasNext = false;
+				return retour;
+			}
+		}
+		else {
+			throw new NoSuchElementException();
+		}
 	}
 
 	/**

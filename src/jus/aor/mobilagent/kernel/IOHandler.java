@@ -14,7 +14,7 @@ class IOHandler extends Handler {
 	/**
 	 * la sortie s'effectue sur une fenêtre indépendante.
 	 */
-	{
+	IOHandler(){
 		io = new Dialogue();
 		io.setOut();
 	}

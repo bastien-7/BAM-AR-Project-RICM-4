@@ -1,6 +1,8 @@
 package jus.aor.mobilagent.kernel;
 
+import java.net.URISyntaxException;
 import java.net.UnknownHostException;
+import java.util.List;
 
 /**
  * Description d'un agent du modèle de bus à agents mobiles "BAM". Le constructeur d'un agent devra avoir la signature suivante : <bold>public XXXX(Object...)</bold>
@@ -17,12 +19,15 @@ public interface _Agent extends java.io.Serializable, Runnable {
 	 * Initialise l'agent lors de son déploiement sur un des serveurs du bus.
 	 * @param server le server actuel pour cet agent
 	 * @param serverName le nom logique du serveur d'agent
+	 * @throws URISyntaxException 
 	 * @throws UnknownHostException 
 	 */
-	public void reInit(AgentServer server, String serverName);
+	public void reInit(AgentServer server, String serverName) throws URISyntaxException;
 	/**
 	 * ajoute une étape en fin de la feuille de route de l'agent.
 	 * @param etape l'étape à ajouter
 	 */
 	public void addEtape(Etape etape);
+	
+	public void init(List<ServiceDescriptor> liste);
 }
