@@ -115,7 +115,7 @@ public class Starter{
 		}
 	}
 	/**
-	 * déploiement les agents définis dans le fichier de configuration
+	 * déploie les agents définis dans le fichier de configuration
 	 */
 	protected void deployAgents() {
 		NamedNodeMap attrsAgent, attrsEtape;
