@@ -3,9 +3,12 @@
  */
 package jus.aor.mobilagent.kernel;
 
+import java.io.ObjectOutputStream;
+import java.io.OutputStream;
 import java.lang.reflect.Constructor;
 import java.lang.reflect.Field;
 import java.net.InetAddress;
+import java.net.Socket;
 import java.net.URI;
 import java.net.URL;
 import java.util.List;
@@ -152,12 +155,20 @@ public final class Server implements _Server {
 	 * @throws Exception
 	 */
 	protected void startAgent(_Agent agent, BAMAgentClassLoader loader) throws Exception {
-		// TODO
+		//QUESTION MORRAT
+		Socket envoi = new Socket(agentServer.site().getHost(),agentServer.site().getPort());
 		
+		OutputStream os = envoi.getOutputStream();
+		ObjectOutputStream oos = new ObjectOutputStream(os);
 		
+		oos.writeObject(loader.extractCode());
+		oos.writeObject(agent);
+		
+		oos.close();
+		os.close();
 	}
 	
 	public String toString() {
-		return null;
+		return "server : "+name+", port : "+port;
 	}
 }

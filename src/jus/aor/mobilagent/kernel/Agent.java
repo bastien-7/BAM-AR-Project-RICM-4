@@ -1,5 +1,6 @@
 package jus.aor.mobilagent.kernel;
 import java.net.UnknownHostException;
+import java.util.List;
 import java.net.URI;
 import java.net.URISyntaxException;
 
@@ -10,7 +11,7 @@ public class Agent implements _Agent{
 	
 	
 	public Agent(Object... args) {
-		
+		//TODO
 	}
 	
 	@Override
@@ -100,5 +101,11 @@ public class Agent implements _Agent{
 	public String toString(){
 		return null;
 		//TODO
+	}
+
+	@Override
+	public void init(List<ServiceDescriptor> liste) {
+		// TODO Auto-generated method stub
+		
 	}
 }
