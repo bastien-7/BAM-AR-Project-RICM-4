@@ -80,5 +80,13 @@ public class Agent implements _Agent{
 	protected String route() {
 		return null;
 	}
-
+	
+	protected void move(URI url) {
+		//TODO
+	}
+	
+	public String toString(){
+		return null;
+		//TODO
+	}
 }

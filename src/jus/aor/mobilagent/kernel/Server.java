@@ -85,6 +85,12 @@ public final class Server implements _Server {
 			return;
 		}
 	}
+	
+	public final void deployAgent(String classeName, Object[] args, String codeBase, List<ServiceDescriptor> LSD) {
+	
+	}
+	
+	
 	/**
 	 * Primitive permettant de "mover" un agent sur ce serveur en vue de son exécution
 	 * immédiate.

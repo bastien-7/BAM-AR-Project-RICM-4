@@ -130,7 +130,16 @@ final class AgentServer implements Runnable{
 			return null;
 		}
 	}
+	private _Agent getAgent(Socket sock){
+		return null;
+		//TODO
+		
+	}
 }
+
+
+
+
 
 /**
  * ObjectInputStream spécifique au bus à agents mobiles. Il permet d'utiliser le
