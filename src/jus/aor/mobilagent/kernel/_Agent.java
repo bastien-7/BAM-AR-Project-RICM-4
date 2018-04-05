@@ -1,5 +1,6 @@
 package jus.aor.mobilagent.kernel;
 
+import java.net.URISyntaxException;
 import java.net.UnknownHostException;
 import java.util.List;
 
@@ -18,9 +19,10 @@ public interface _Agent extends java.io.Serializable, Runnable {
 	 * Initialise l'agent lors de son déploiement sur un des serveurs du bus.
 	 * @param server le server actuel pour cet agent
 	 * @param serverName le nom logique du serveur d'agent
+	 * @throws URISyntaxException 
 	 * @throws UnknownHostException 
 	 */
-	public void reInit(AgentServer server, String serverName);
+	public void reInit(AgentServer server, String serverName) throws URISyntaxException;
 	/**
 	 * ajoute une étape en fin de la feuille de route de l'agent.
 	 * @param etape l'étape à ajouter
