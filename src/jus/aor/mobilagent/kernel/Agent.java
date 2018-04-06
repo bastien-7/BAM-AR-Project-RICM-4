@@ -1,6 +1,11 @@
 package jus.aor.mobilagent.kernel;
 import java.net.UnknownHostException;
 import java.util.List;
+import java.util.NoSuchElementException;
+import java.io.IOException;
+import java.io.ObjectOutputStream;
+import java.io.OutputStream;
+import java.net.Socket;
 import java.net.URI;
 import java.net.URISyntaxException;
 
@@ -11,7 +16,6 @@ public class Agent implements _Agent{
 	
 	
 	public Agent(Object... args) {
-		//TODO
 	}
 	
 	@Override
@@ -21,7 +25,12 @@ public class Agent implements _Agent{
 			Etape e = route.next();
 			e.action.execute();
 			if(route.hasNext()){
-				move();
+				try {
+					move();
+				} catch (NoSuchElementException | IOException e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				}
 			}
 		}
 		
@@ -73,9 +82,8 @@ public class Agent implements _Agent{
 		route.add(etape);
 	}
 	
-	//TODO
 	protected _Action retour() {
-		return null;
+		return this.route.next().action;
 		
 	}
 	
@@ -84,28 +92,35 @@ public class Agent implements _Agent{
 		return null;
 	}
 	
-	//TODO
-	private void move() {
+	private void move() throws NoSuchElementException, IOException {
 		move(route.get().server);
 	}
 	
-	//TODO
 	protected String route() {
-		return null;
+		return this.route.toString();
 	}
 	
-	protected void move(URI url) {
-		//TODO
+	protected void move(URI url) throws IOException {
+		
+		Socket envoi = new Socket(url.getHost(),url.getPort());
+		
+		OutputStream os = envoi.getOutputStream();
+		ObjectOutputStream oos = new ObjectOutputStream(os);
+		
+		oos.writeObject(this);
+		
+		oos.close();
+		os.close();
 	}
 	
 	public String toString(){
-		return null;
-		//TODO
+		return "route : " + this.route.toString() + " | agent serveur : " + this.as.toString();
 	}
 
 	@Override
 	public void init(List<ServiceDescriptor> liste) {
 		// TODO Auto-generated method stub
+		//
 		
 	}
 }
