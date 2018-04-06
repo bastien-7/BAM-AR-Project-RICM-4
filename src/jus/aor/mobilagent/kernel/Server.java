@@ -83,7 +83,7 @@ public final class Server implements _Server {
 		try {
 			// TODO
 
-			// QUESTION MORRAT
+			// QUESTION MORAT
 
 			BAMServerClassLoader classloader = new BAMServerClassLoader(new URL[] { new URL(codeBase) });
 
@@ -155,7 +155,7 @@ public final class Server implements _Server {
 	 * @throws Exception
 	 */
 	protected void startAgent(_Agent agent, BAMAgentClassLoader loader) throws Exception {
-		//QUESTION MORRAT
+		//QUESTION MORAT
 		Socket envoi = new Socket(agentServer.site().getHost(),agentServer.site().getPort());
 		
 		OutputStream os = envoi.getOutputStream();
