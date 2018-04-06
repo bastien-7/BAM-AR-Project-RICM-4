@@ -141,13 +141,15 @@ final class AgentServer implements Runnable{
 		
 		Jar MyJar = (Jar) OIS.readObject();
 		BAMACL.integrateCode(MyJar);
+		
+		IS.close();
+		OIS.close();
+		AIS.close();
+		
 		return (_Agent) AIS.readObject() ;
 		
 	}
 }
-
-
-
 
 
 /**

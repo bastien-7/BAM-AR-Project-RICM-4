@@ -3,25 +3,25 @@ package jus.aor.mobilagent.kernel;
 public class ServiceDescriptor {
 
 	ServiceDescriptor(){
-		//TODO
+		// TODO
 	}
 	
 	public String name(){
 		return null;
-		//TODO
+		// TODO
 	}
 	
 	public int hashCode(){
 		return 0;
-		//TODO
+		// TODO
 	}
 	
 	public void equals(){
-		//TODO
+		// TODO
 	}
 	
 	public String toString(){
 		return null;
-		//TODO
+		// TODO
 	}
 }
