@@ -117,20 +117,21 @@ public final class Server implements _Server {
 			List<String> etapeAction) {
 		try {
 			// TODO en terme de startAgent
-			
-			BAMAgentClassLoader classloader = new BAMAgentClassLoader(codeBase,this.getClass().getClassLoader());
-			
+
+			BAMAgentClassLoader classloader = new BAMAgentClassLoader(codeBase, this.getClass().getClassLoader());
+
 			Class<?> classe = Class.forName(classeName, true, classloader);
-			
+
 			Constructor<?> constr = classe.getConstructor(Object[].class);
-			
+
 			_Agent agent = (_Agent) constr.newInstance(args);
 			agent.init(this.agentServer, this.name);
-			
-			while(etapeAddress.iterator().hasNext() && etapeAction.iterator().hasNext()) {
-				agent.addEtape(new Etape(new URI(etapeAddress.iterator().next()),(_Action) classe.getField(etapeAction.iterator().next()).get(agent)));
+
+			while (etapeAddress.iterator().hasNext() && etapeAction.iterator().hasNext()) {
+				agent.addEtape(new Etape(new URI(etapeAddress.iterator().next()),
+						(_Action) classe.getField(etapeAction.iterator().next()).get(agent)));
 			}
-			
+
 			startAgent(agent, classloader);
 		} catch (Exception ex) {
 			logger.log(Level.FINE, " erreur durant le lancement du serveur" + this, ex);
@@ -139,9 +140,8 @@ public final class Server implements _Server {
 	}
 
 	public final void deployAgent(String classeName, Object[] args, String codeBase, List<ServiceDescriptor> LSD) {
-	//TODO
+		// TODO
 	}
-	
 
 	/**
 	 * Primitive permettant de "mover" un agent sur ce serveur en vue de son
@@ -155,20 +155,20 @@ public final class Server implements _Server {
 	 */
 	protected void startAgent(_Agent agent, BAMAgentClassLoader loader) throws Exception {
 
-		Socket envoi = new Socket(agentServer.site().getHost(),agentServer.site().getPort());
-		
+		Socket envoi = new Socket(agentServer.site().getHost(), agentServer.site().getPort());
+
 		OutputStream os = envoi.getOutputStream();
 		ObjectOutputStream oos = new ObjectOutputStream(os);
-		
+
 		oos.writeObject(loader.extractCode());
 		oos.writeObject(agent);
-		
+
 		oos.close();
 		os.close();
 		envoi.close();
 	}
-	
+
 	public String toString() {
-		return "server : "+name+", port : "+port;
+		return "server : " + name + ", port : " + port;
 	}
 }
