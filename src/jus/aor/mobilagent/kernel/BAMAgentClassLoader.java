@@ -21,6 +21,8 @@ public class BAMAgentClassLoader extends ClassLoader {
 		while (my_jar.iterator().hasNext()) {
 			Entry<String, byte[]> ent = my_jar.iterator().next();
 			// Save JAR information in the MAP for future export
+			
+			//TODO debug defineClass
 			defineClass(ent.getKey(), ent.getValue(), 0, ent.getValue().length);
 			System.out.println("BAMAgentClassLoader : charge class " + ent.getKey());
 		}

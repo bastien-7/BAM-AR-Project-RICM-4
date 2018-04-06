@@ -62,6 +62,7 @@ public class Starter {
 			// logger.setUseParentHandlers(false);
 			logger.addHandler(new IOHandler());
 			logger.setLevel(level);
+
 			/* Récupération d'informations de configuration */
 			DocumentBuilder docBuilder = DocumentBuilderFactory.newInstance().newDocumentBuilder();
 			doc = docBuilder.parse(new File(args[0]));
@@ -73,8 +74,10 @@ public class Starter {
 			// addServices();
 			// déploiement d'agents
 			deployAgents();
-		} catch (Exception ex) {
-			logger.log(Level.FINE, "Ce programme nécessite un argument : <conf file> <name server>", ex);
+
+		}catch(Exception ex){
+			logger.log(Level.FINE,"Ce programme nécessite un argument : <conf file> <name server>",ex);
+			ex.printStackTrace();
 			return;
 		}
 	}
