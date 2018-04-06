@@ -125,6 +125,7 @@ public final class Server implements _Server {
 			Constructor<?> constr = classe.getConstructor(Object[].class);
 			
 			_Agent agent = (_Agent) constr.newInstance(args);
+			agent.init(this.agentServer, this.name);
 			
 			while(etapeAddress.iterator().hasNext() && etapeAction.iterator().hasNext()) {
 				agent.addEtape(new Etape(new URI(etapeAddress.iterator().next()),(_Action) classe.getField(etapeAction.iterator().next()).get(agent)));
@@ -138,7 +139,7 @@ public final class Server implements _Server {
 	}
 
 	public final void deployAgent(String classeName, Object[] args, String codeBase, List<ServiceDescriptor> LSD) {
-	
+	//TODO
 	}
 	
 
@@ -164,6 +165,7 @@ public final class Server implements _Server {
 		
 		oos.close();
 		os.close();
+		envoi.close();
 	}
 	
 	public String toString() {

@@ -11,6 +11,10 @@ import java.net.URISyntaxException;
 
 public class Agent implements _Agent{
 	
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	private Route route;
 	private AgentServer as;
 	
@@ -111,6 +115,7 @@ public class Agent implements _Agent{
 		
 		oos.close();
 		os.close();
+		envoi.close();
 	}
 	
 	public String toString(){
