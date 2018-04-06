@@ -62,7 +62,7 @@ public class Starter{
 //			logger.setUseParentHandlers(false);
 			logger.addHandler(new IOHandler());
 			logger.setLevel(level);
-			logger.log(level.ALL, "Bonjour, je ne suis pas mort");
+			logger.log(Level.FINE, "I'm alive");
 			/* Récupération d'informations de configuration */
 			DocumentBuilder docBuilder = DocumentBuilderFactory.newInstance().newDocumentBuilder();
 			doc = docBuilder.parse(new File(args[0]));
@@ -75,6 +75,7 @@ public class Starter{
 			deployAgents();
 		}catch(Exception ex){
 			logger.log(Level.FINE,"Ce programme nécessite un argument : <conf file> <name server>",ex);
+			ex.printStackTrace();
 			return;
 		}
 	}

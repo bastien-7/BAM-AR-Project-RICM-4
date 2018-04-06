@@ -129,7 +129,11 @@ public final class Server implements _Server {
 			_Agent agent = (_Agent) constr.newInstance(args);
 			agent.init(agentServer, name);
 			while(etapeAddress.iterator().hasNext() && etapeAction.iterator().hasNext()) {
-				agent.addEtape(new Etape(new URI(etapeAddress.iterator().next()),(_Action) classe.getField(etapeAction.iterator().next()).get(agent)));
+				URI uri = new URI(etapeAddress.iterator().next());
+				Field f = classe.getField(etapeAction.iterator().next());
+				_Action action =(_Action) f.get(agent);
+				f.setAccessible(true);
+				agent.addEtape(new Etape(uri,action));
 			}
 			
 			startAgent(agent, classloader);
