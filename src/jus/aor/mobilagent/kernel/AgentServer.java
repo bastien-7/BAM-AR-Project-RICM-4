@@ -75,7 +75,7 @@ final class AgentServer implements Runnable{
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		} catch (URISyntaxException e) {
-			// TODO Bloc catch généré automatiquement
+			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		
