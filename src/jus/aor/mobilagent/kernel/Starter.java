@@ -62,6 +62,7 @@ public class Starter{
 //			logger.setUseParentHandlers(false);
 			logger.addHandler(new IOHandler());
 			logger.setLevel(level);
+			logger.log(level.ALL, "Bonjour, je ne suis pas mort");
 			/* Récupération d'informations de configuration */
 			DocumentBuilder docBuilder = DocumentBuilderFactory.newInstance().newDocumentBuilder();
 			doc = docBuilder.parse(new File(args[0]));
@@ -69,7 +70,7 @@ public class Starter{
 			// Création du serveur
 			createServer(port,args[1]);
 			// ajout des services
-			addServices();
+			// addServices();
 			// déploiement d'agents
 			deployAgents();
 		}catch(Exception ex){
@@ -80,7 +81,7 @@ public class Starter{
 	
 	@SuppressWarnings("unchecked")
 	protected void createServer(int port, String name) throws MalformedURLException, ClassNotFoundException, InstantiationException, IllegalAccessException, IllegalArgumentException, InvocationTargetException, NoSuchMethodException, SecurityException {
-		loader = new BAMServerClassLoader(new URL[]{new URL("file:///.../MobilagentServer.jar")},this.getClass().getClassLoader());
+		loader = new BAMServerClassLoader(new URL[]{new URL("file:///home/terrier/eclipse-workspace/BAM-AR-Project-RICM-4/src/jus/aor/mobilagent/kernel/MobilagentServer.jar")},this.getClass().getClassLoader());
 		classe = (Class<jus.aor.mobilagent.kernel.Server>)Class.forName("jus.aor.mobilagent.kernel.Server",true,loader);
 		server = classe.getConstructor(int.class,String.class).newInstance(port,name);
 	}

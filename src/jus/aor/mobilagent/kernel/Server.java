@@ -127,7 +127,7 @@ public final class Server implements _Server {
 			Constructor<?> constr = classe.getConstructor(Object[].class);
 			
 			_Agent agent = (_Agent) constr.newInstance(args);
-			
+			agent.init(agentServer, name);
 			while(etapeAddress.iterator().hasNext() && etapeAction.iterator().hasNext()) {
 				agent.addEtape(new Etape(new URI(etapeAddress.iterator().next()),(_Action) classe.getField(etapeAction.iterator().next()).get(agent)));
 			}
@@ -155,7 +155,6 @@ public final class Server implements _Server {
 	 * @throws Exception
 	 */
 	protected void startAgent(_Agent agent, BAMAgentClassLoader loader) throws Exception {
-		//QUESTION MORAT
 		Socket envoi = new Socket(agentServer.site().getHost(),agentServer.site().getPort());
 		
 		OutputStream os = envoi.getOutputStream();
