@@ -62,7 +62,7 @@ public final class Server implements _Server {
 			/* temporisation de mise en place du server d'agents */
 			Thread.sleep(1000);
 		} catch (Exception ex) {
-			logger.log(Level.FINE, " erreur durant le lancement du serveur" + this, ex);
+			logger.log(Level.FINE, "constructeur : erreur durant le lancement du serveur" + this, ex);
 			return;
 		}
 	}
@@ -94,7 +94,7 @@ public final class Server implements _Server {
 
 			agentServer.addService(name, (_Service<?>) constr.newInstance(args));
 		} catch (Exception ex) {
-			logger.log(Level.FINE, " erreur durant le lancement du serveur" + this, ex);
+			logger.log(Level.FINE, "addservice : erreur durant le lancement du serveur" + this, ex);
 			return;
 		}
 	}
@@ -124,6 +124,7 @@ public final class Server implements _Server {
 
 			Constructor<?> constr = classe.getConstructor(Object[].class);
 
+			//TODO debug problem argument type mismatch
 			_Agent agent = (_Agent) constr.newInstance(args);
 
 			agent.init(agentServer, name);
@@ -137,7 +138,9 @@ public final class Server implements _Server {
 
 			startAgent(agent, classloader);
 		} catch (Exception ex) {
-			logger.log(Level.FINE, " erreur durant le lancement du serveur" + this, ex);
+			
+			logger.log(Level.FINE, " deployagent : erreur durant le lancement du serveur " + this, ex);
+			ex.printStackTrace();
 			return;
 		}
 	}
