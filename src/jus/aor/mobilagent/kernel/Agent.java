@@ -92,7 +92,7 @@ public class Agent implements _Agent {
 
 	// TODO
 	protected _Service<?> getService(String s) {
-		return null;
+		return as.getService(s);
 	}
 
 	private void move() throws NoSuchElementException, IOException {

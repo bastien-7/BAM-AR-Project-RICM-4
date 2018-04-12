@@ -13,26 +13,31 @@ import jus.aor.mobilagent.kernel.Starter;
 
 /**
  * Classe de test élémentaire pour le bus à agents mobiles
- * @author  Morat
+ * 
+ * @author Morat
  */
 
-public class Hello extends Agent{
+public class Hello extends Agent {
 
-	 /**
-	 * 
-	 */
-	private static final long serialVersionUID = 1L;
 	/**
-	  * construction d'un agent de type hello.
-	  * @param args aucun argument n'est requis
-	  */
-	
-	 public Hello(Object... args) {
-	 }
-	 /**
-	 * l'action à entreprendre sur les serveurs visités  
+	* 
+	*/
+	private static final long serialVersionUID = 1L;
+
+	/**
+	 * construction d'un agent de type hello.
+	 * 
+	 * @param args
+	 *            aucun argument n'est requis
 	 */
-	protected _Action doIt = new _Action(){
+
+	public Hello(Object... args) {
+	}
+
+	/**
+	 * l'action à entreprendre sur les serveurs visités
+	 */
+	protected _Action doIt = new _Action() {
 
 		/**
 		 * 
@@ -42,15 +47,19 @@ public class Hello extends Agent{
 		@Override
 		public void execute() {
 			// TODO Auto-generated method stub
-			Starter.getLogger().log(Level.ALL, "Execution de l'action doIt\n\n Hello ! I'm the Hello Agent. Thank you for your attention. Good Bye !");
+			Starter.getLogger().log(Level.ALL,
+					"Execution de l'action doIt\n\n Hello ! I'm the Hello Agent. Thank you for your attention. Good Bye !");
 		}
 		// ...
 	};
-	/* (non-Javadoc)
+
+	/*
+	 * (non-Javadoc)
+	 * 
 	 * @see jus.aor.mobilagent.kernel.Agent#retour()
 	 */
 	@Override
-	protected _Action retour(){
+	protected _Action retour() {
 		return doIt;
 	}
 	// ...

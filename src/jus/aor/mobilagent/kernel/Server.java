@@ -85,18 +85,16 @@ public final class Server implements _Server {
 		try {
 			// TODO
 
-			BAMServerClassLoader classloader = new BAMServerClassLoader(new URL[] { new URL(codeBase) });
-
-			// BAMServerClassLoader wClassLoader = new BAMServerClassLoader(new URL[] {},
-			// this.getClass().getClassLoader());
+			BAMAgentClassLoader classloader = new BAMAgentClassLoader(codeBase, this.getClass().getClassLoader());
 
 			Class<?> classe = Class.forName(classeName, true, classloader);
 
 			Constructor<?> constr = classe.getConstructor(Object[].class);
 
-			agentServer.addService(name, (_Service<?>) constr.newInstance(args));
+			agentServer.addService(name, (_Service<?>) constr.newInstance(new Object[] { args }));
 		} catch (Exception ex) {
 			logger.log(Level.FINE, "addservice : erreur durant le lancement du serveur" + this, ex);
+			ex.printStackTrace();
 			return;
 		}
 	}

@@ -83,7 +83,8 @@ final class AgentServer implements Runnable {
 	 *            le service
 	 */
 	void addService(String name, _Service<?> service) {
-		services.put(name, service);
+		this.services.put(name, service);
+		System.out.println(this.services.toString());
 	}
 
 	/*

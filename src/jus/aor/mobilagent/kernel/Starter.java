@@ -82,7 +82,7 @@ public class Starter {
 			// Création du serveur
 			createServer(port, args[1]);
 			// ajout des services
-			// addServices();
+			 addServices();
 			// déploiement d'agents
 			deployAgents();
 
