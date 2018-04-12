@@ -17,16 +17,24 @@ public class BAMAgentClassLoader extends ClassLoader {
 
 	BAMAgentClassLoader(String jarName, ClassLoader parent) throws JarException, IOException {
 		super(parent);
-		this.my_jar = new Jar(jarName);
-		this.integrateCode(this.my_jar);
+		this.integrateCode(new Jar(jarName));
 
 	}
 
 	BAMAgentClassLoader(ClassLoader parent) {
 		super(parent);
+		if(parent instanceof BAMAgentClassLoader){
+            try {
+				my_jar = ((BAMAgentClassLoader) parent).extractCode();
+			} catch (IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+        }   
 	}
 
 	void integrateCode(Jar my_jar) {
+		this.my_jar = my_jar;
 		for (Entry<String, byte[]> ent : my_jar) {
 			Class<?> classe = this.defineClass(this.className(ent.getKey()), ent.getValue(), 0, ent.getValue().length);
 			super.resolveClass(classe);

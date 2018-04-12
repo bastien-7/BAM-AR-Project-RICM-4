@@ -14,7 +14,7 @@ import java.net.*;
  * 
  * @author Morat
  */
-final class AgentServer implements Runnable{
+final class AgentServer implements Runnable {
 	/** le logger de ce serveur */
 	private Logger logger;
 	/** La table des services utilisables sur ce serveur */
@@ -50,24 +50,25 @@ final class AgentServer implements Runnable{
 	 * le lancement du serveur
 	 */
 	public void run() {
-		//Reception-Envoi des agents
+		// Reception-Envoi des agents
 		Socket client;
 		try {
-			while(true) {
+			while (true) {
 				client = s.accept();
 				InputStream is = client.getInputStream();
 				BAMAgentClassLoader loader = new BAMAgentClassLoader(this.getClass().getClassLoader());
-				AgentInputStream ais = new AgentInputStream(is,loader);
-				
-				Jar j = (Jar)ais.readObject();
+				AgentInputStream ais = new AgentInputStream(is, loader);
+
+				Jar j = (Jar) ais.readObject();
 				loader.integrateCode(j);
-				
-				Agent agent = (Agent)ais.readObject();
-				agent.reInit(this,this.name);
+
+				Agent agent = (Agent) ais.readObject();
+				agent.reInit(this, this.name);
 				new Thread(agent).start();
+				ais.close();
 				client.close();
 			}
-			
+
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -78,7 +79,7 @@ final class AgentServer implements Runnable{
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		
+
 	}
 
 	/**
@@ -131,26 +132,25 @@ final class AgentServer implements Runnable{
 			return null;
 		}
 	}
-	
-	private _Agent getAgent(Socket sock) throws ClassNotFoundException, IOException{
-		
+
+	private _Agent getAgent(Socket sock) throws ClassNotFoundException, IOException {
+
 		BAMAgentClassLoader BAMACL = new BAMAgentClassLoader(this.getClass().getClassLoader());
 		InputStream IS = sock.getInputStream();
 		ObjectInputStream OIS = new ObjectInputStream(IS);
 		AgentInputStream AIS = new AgentInputStream(IS, BAMACL);
-		
+
 		Jar MyJar = (Jar) OIS.readObject();
 		BAMACL.integrateCode(MyJar);
-		
+
 		IS.close();
 		OIS.close();
 		AIS.close();
-		
-		return (_Agent) AIS.readObject() ;
-		
+
+		return (_Agent) AIS.readObject();
+
 	}
 }
-
 
 /**
  * ObjectInputStream spécifique au bus à agents mobiles. Il permet d'utiliser le

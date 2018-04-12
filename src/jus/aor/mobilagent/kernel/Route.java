@@ -34,7 +34,7 @@ class Route implements Iterable<Etape>, Serializable {
 	 */
 	public Route(Etape retour) {
 		route = new LinkedList<Etape>();
-		// route.add(retour);
+		route.add(retour);
 		this.retour = retour;
 		hasNext = true;
 	}

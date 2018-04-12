@@ -1,4 +1,5 @@
 package jus.aor.mobilagent.kernel;
+
 import java.net.UnknownHostException;
 import java.util.List;
 import java.util.NoSuchElementException;
@@ -9,26 +10,27 @@ import java.net.Socket;
 import java.net.URI;
 import java.net.URISyntaxException;
 
-public class Agent implements _Agent{
-	
+public class Agent implements _Agent {
+
 	/**
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
 	private Route route;
 	private transient AgentServer as;
-	
-	
+
 	public Agent(Object... args) {
 	}
-	
+
 	@Override
 	public void run() {
 		System.out.println("Run ! ");
-		if(route.hasNext()){
+		if (route.hasNext()) {
 			Etape e = route.next();
-			e.action.execute();
-			if(route.hasNext()){
+			if (!(route.retour.server.equals(as.site()))) {
+				e.action.execute();
+			}
+			if (route.hasNext()) {
 				try {
 					move();
 				} catch (NoSuchElementException | IOException e1) {
@@ -37,37 +39,40 @@ public class Agent implements _Agent{
 				}
 			}
 		}
-		
+
 	}
-	
+
 	/**
-	 * Initialise l'agent lors de son déploiement initial dans le bus à agents mobiles.
-	 * @param agentServer le serveur hébergeant initialement l'agent.
-	 * @param serverName le nom logique du serveur d'agent
+	 * Initialise l'agent lors de son déploiement initial dans le bus à agents
+	 * mobiles.
+	 * 
+	 * @param agentServer
+	 *            le serveur hébergeant initialement l'agent.
+	 * @param serverName
+	 *            le nom logique du serveur d'agent
 	 */
 	@Override
 	public void init(AgentServer agentServer, String serverName) {
 		as = agentServer;
-		try {
-			this.route = new Route(new Etape(new URI(serverName),new _Action() {
+		this.route = new Route(new Etape(as.site(), new _Action() {
 
-				@Override
-				public void execute() {
-					System.out.println("J'effectue une action");
-				}
-				
-			}));
-		} catch (URISyntaxException e) {
-			e.printStackTrace();
-		}
+			@Override
+			public void execute() {
+				System.out.println("J'effectue une action");
+			}
+
+		}));
 	}
 
 	/**
 	 * Initialise l'agent lors de son déploiement sur un des serveurs du bus.
-	 * @param server le server actuel pour cet agent
-	 * @param serverName le nom logique du serveur d'agent
-	 * @throws URISyntaxException 
-	 * @throws UnknownHostException 
+	 * 
+	 * @param server
+	 *            le server actuel pour cet agent
+	 * @param serverName
+	 *            le nom logique du serveur d'agent
+	 * @throws URISyntaxException
+	 * @throws UnknownHostException
 	 */
 	@Override
 	public void reInit(AgentServer server, String serverName) throws URISyntaxException {
@@ -78,40 +83,43 @@ public class Agent implements _Agent{
 	public void addEtape(Etape etape) {
 		route.add(etape);
 	}
-	
+
 	protected _Action retour() {
 		return this.route.next().action;
-		
+
 	}
-	
-	//TODO
-	protected _Service<?> getService(String s){
+
+	// TODO
+	protected _Service<?> getService(String s) {
 		return null;
 	}
-	
+
 	private void move() throws NoSuchElementException, IOException {
 		move(route.get().server);
 	}
-	
+
 	protected String route() {
 		return this.route.toString();
 	}
-	
+
 	protected void move(URI url) throws IOException {
-		
-		Socket envoi = new Socket(url.getHost(),url.getPort());
-		
+		System.out.println("JE NE BOUCLE PAS");
+
+		Socket envoi = new Socket(url.getHost(), url.getPort());
+
 		OutputStream os = envoi.getOutputStream();
 		ObjectOutputStream oos = new ObjectOutputStream(os);
-		
+
+		BAMAgentClassLoader loader = new BAMAgentClassLoader(this.getClass().getClassLoader());
+		oos.writeObject(loader.extractCode());
 		oos.writeObject(this);
-		
+
 		oos.close();
 		os.close();
 		envoi.close();
 	}
-	
-	public String toString(){
+
+	public String toString() {
 		return "route : " + this.route.toString() + " | agent serveur : " + this.as.toString();
 	}
 
@@ -119,6 +127,6 @@ public class Agent implements _Agent{
 	public void init(List<ServiceDescriptor> liste) {
 		// TODO Auto-generated method stub
 		//
-		
+
 	}
 }
