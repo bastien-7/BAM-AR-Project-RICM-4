@@ -34,6 +34,7 @@ class Route implements Iterable<Etape>, Serializable {
 	 */
 	public Route(Etape retour) {
 		route = new LinkedList<Etape>();
+		// route.add(retour);
 		this.retour = retour;
 		hasNext = true;
 	}
@@ -45,7 +46,7 @@ class Route implements Iterable<Etape>, Serializable {
 	 *            l'étape à ajouter
 	 */
 	public void add(Etape e) {
-		route.add(route.size(), e);
+		route.add(e);
 	}
 
 	/**
@@ -54,16 +55,14 @@ class Route implements Iterable<Etape>, Serializable {
 	 * @return la prochaine étape.
 	 */
 	Etape get() throws NoSuchElementException {
-		if(hasNext){
-			if(route.size() > 0){
+		if (hasNext) {
+			if (route.size() > 0) {
 				return route.get(0);
-			}	
-			else {
+			} else {
 				return retour;
 			}
-		}
-		else {
-			throw new NoSuchElementException() ;
+		} else {
+			throw new NoSuchElementException();
 		}
 	}
 
@@ -75,18 +74,16 @@ class Route implements Iterable<Etape>, Serializable {
 	 */
 	Etape next() throws NoSuchElementException {
 		Etape Next;
-		if(hasNext){
-			if(route.size() > 0){
+		if (hasNext) {
+			if (route.size() > 0) {
 				Next = route.get(0);
 				route.remove(0);
 				return Next;
-			}
-			else {
+			} else {
 				hasNext = false;
 				return retour;
 			}
-		}
-		else {
+		} else {
 			throw new NoSuchElementException();
 		}
 	}
@@ -116,6 +113,7 @@ class Route implements Iterable<Etape>, Serializable {
 	 */
 	@Override
 	public String toString() {
+		System.out.println(route);
 		return route.toString().replaceAll(", ", "->");
 	}
 }

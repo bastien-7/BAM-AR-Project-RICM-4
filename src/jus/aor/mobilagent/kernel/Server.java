@@ -3,6 +3,7 @@
  */
 package jus.aor.mobilagent.kernel;
 
+import java.io.DataOutputStream;
 import java.io.ObjectOutputStream;
 import java.io.OutputStream;
 import java.lang.reflect.Constructor;
@@ -124,21 +125,25 @@ public final class Server implements _Server {
 
 			Constructor<?> constr = classe.getConstructor(Object[].class);
 
-			//TODO debug problem argument type mismatch
-			_Agent agent = (_Agent) constr.newInstance(args);
+			// TODO debug problem argument type mismatch
+			Agent agent = (Agent) constr.newInstance(new Object[] { args });
 
 			agent.init(agentServer, name);
-			while(etapeAddress.iterator().hasNext() && etapeAction.iterator().hasNext()) {
-				URI uri = new URI(etapeAddress.iterator().next());
-				Field f = classe.getField(etapeAction.iterator().next());
-				_Action action =(_Action) f.get(agent);
-				f.setAccessible(true);
-				agent.addEtape(new Etape(uri,action));
-			}
+			if (etapeAddress.size() == etapeAction.size()) {
 
+				for (int i = 0; i < etapeAddress.size(); i++) {
+					
+					URI uri = new URI(etapeAddress.get(i));
+					Field f = classe.getDeclaredField(etapeAction.get(i));
+					f.setAccessible(true);
+					_Action action = (_Action) f.get(agent);
+
+					agent.addEtape(new Etape(uri, action));
+				}
+
+			}
 			startAgent(agent, classloader);
 		} catch (Exception ex) {
-			
 			logger.log(Level.FINE, " deployagent : erreur durant le lancement du serveur " + this, ex);
 			ex.printStackTrace();
 			return;
@@ -165,7 +170,8 @@ public final class Server implements _Server {
 
 		OutputStream os = envoi.getOutputStream();
 		ObjectOutputStream oos = new ObjectOutputStream(os);
-
+		
+		
 		oos.writeObject(loader.extractCode());
 		oos.writeObject(agent);
 

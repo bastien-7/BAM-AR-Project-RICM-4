@@ -16,7 +16,7 @@ public class Agent implements _Agent{
 	 */
 	private static final long serialVersionUID = 1L;
 	private Route route;
-	private AgentServer as;
+	private transient AgentServer as;
 	
 	
 	public Agent(Object... args) {
@@ -49,7 +49,7 @@ public class Agent implements _Agent{
 	public void init(AgentServer agentServer, String serverName) {
 		as = agentServer;
 		try {
-			route = new Route(new Etape(new URI(serverName),new _Action() {
+			this.route = new Route(new Etape(new URI(serverName),new _Action() {
 
 				@Override
 				public void execute() {
@@ -72,13 +72,6 @@ public class Agent implements _Agent{
 	@Override
 	public void reInit(AgentServer server, String serverName) throws URISyntaxException {
 		this.as = server;
-		route = new Route(new Etape(new URI(serverName),new _Action() {
-			@Override
-			public void execute() {
-				System.out.println("J'effectue une action");
-			}
-			
-		}));
 	}
 
 	@Override
