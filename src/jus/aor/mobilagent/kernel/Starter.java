@@ -32,7 +32,9 @@ public class Starter {
 	/** le document xml en cours */
 	protected Document doc;
 	/** le logger pour ce code */
-	protected Logger logger;
+	protected static Logger logger;
+
+
 	/** le server associé à ce starter */
 	protected jus.aor.mobilagent.kernel._Server server;
 	/** le Loader utilisé */
@@ -45,6 +47,15 @@ public class Starter {
 	 * @param args
 	 *            args[0] : fichier conf args[1] : nom du serveur
 	 */
+	
+	public static Logger getLogger() {
+		return logger;
+	}
+
+	public void setLogger(Logger logger) {
+		this.logger = logger;
+	}
+	
 	public Starter(String... args) {
 		// récupération du niveau de log
 		java.util.logging.Level level;

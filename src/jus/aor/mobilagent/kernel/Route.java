@@ -114,6 +114,19 @@ class Route implements Iterable<Etape>, Serializable {
 	@Override
 	public String toString() {
 		System.out.println(route);
-		return route.toString().replaceAll(", ", "->");
+		String s = "";
+		if (route.size()==1) {
+			s = "\n-->Retour au point de départ !";
+		} else if (route.size()>0) {
+			for (int i = 1; i<route.size(); i++) {
+				s = s + "\n-->";
+				s = s + route.get(i).toString();
+				
+			}
+		} else {
+			s = "finie \nArrivé à destination !";
+		}
+
+		return s;
 	}
 }

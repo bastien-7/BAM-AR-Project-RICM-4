@@ -55,17 +55,9 @@ final class AgentServer implements Runnable {
 		try {
 			while (true) {
 				client = s.accept();
-				InputStream is = client.getInputStream();
-				BAMAgentClassLoader loader = new BAMAgentClassLoader(this.getClass().getClassLoader());
-				AgentInputStream ais = new AgentInputStream(is, loader);
-
-				Jar j = (Jar) ais.readObject();
-				loader.integrateCode(j);
-
-				Agent agent = (Agent) ais.readObject();
+				Agent agent = (Agent) this.getAgent(client);
 				agent.reInit(this, this.name);
 				new Thread(agent).start();
-				ais.close();
 				client.close();
 			}
 
@@ -135,19 +127,22 @@ final class AgentServer implements Runnable {
 
 	private _Agent getAgent(Socket sock) throws ClassNotFoundException, IOException {
 
-		BAMAgentClassLoader BAMACL = new BAMAgentClassLoader(this.getClass().getClassLoader());
-		InputStream IS = sock.getInputStream();
-		ObjectInputStream OIS = new ObjectInputStream(IS);
-		AgentInputStream AIS = new AgentInputStream(IS, BAMACL);
+		InputStream is = sock.getInputStream();
+		BAMAgentClassLoader loader = new BAMAgentClassLoader(this.getClass().getClassLoader());
+		AgentInputStream ais = new AgentInputStream(is, loader);
 
-		Jar MyJar = (Jar) OIS.readObject();
-		BAMACL.integrateCode(MyJar);
+		Jar j = (Jar) ais.readObject();
+		loader.integrateCode(j);
 
-		IS.close();
-		OIS.close();
-		AIS.close();
+		Agent agent = (Agent) ais.readObject();
+		if (agent!=null) {
+			Starter.getLogger().log(Level.ALL,   "Un agent vient d'arriver sur " + this.name + " sa route est : " + agent.route());
+		}
+		
+		is.close();
+		ais.close();
 
-		return (_Agent) AIS.readObject();
+		return (_Agent) agent;
 
 	}
 }

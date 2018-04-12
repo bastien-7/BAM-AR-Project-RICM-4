@@ -5,6 +5,10 @@
 	<agent class="jus.aor.mobilagent.hello.Hello" codebase="src/jus/aor/mobilagent/hello/Hello.jar" args="">
 		<etape server="mobilagent://localhost:2222/" action="doIt" />
 		<etape server="mobilagent://localhost:3333/" action="doIt" />
+		<etape server="mobilagent://localhost:2222/" action="doIt" />
+		<etape server="mobilagent://localhost:3333/" action="doIt" />
+		<etape server="mobilagent://localhost:2222/" action="doIt" />
+		<etape server="mobilagent://localhost:3333/" action="doIt" />
 	</agent>
 </server>
 

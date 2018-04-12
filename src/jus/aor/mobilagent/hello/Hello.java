@@ -5,9 +5,11 @@ import java.text.DateFormat;
 import java.util.Date;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.logging.Level;
 
 import jus.aor.mobilagent.kernel._Action;
 import jus.aor.mobilagent.kernel.Agent;
+import jus.aor.mobilagent.kernel.Starter;
 
 /**
  * Classe de test élémentaire pour le bus à agents mobiles
@@ -40,7 +42,7 @@ public class Hello extends Agent{
 		@Override
 		public void execute() {
 			// TODO Auto-generated method stub
-			System.out.println("Hello ! I'm the Hello Agent. Thank you for your attention. Good Bye !");
+			Starter.getLogger().log(Level.ALL, "Execution de l'action doIt\n\n Hello ! I'm the Hello Agent. Thank you for your attention. Good Bye !");
 		}
 		// ...
 	};

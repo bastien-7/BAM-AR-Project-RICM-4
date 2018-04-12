@@ -29,5 +29,5 @@ public class Etape implements Serializable{
 	 * @see java.lang.Object#toString()
 	 */
 	@Override
-	public String toString() {return server+"("+action+")";}
+	public String toString() {return "Serveur " + server.getPort();}
 }

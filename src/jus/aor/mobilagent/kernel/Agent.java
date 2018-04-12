@@ -3,6 +3,7 @@ package jus.aor.mobilagent.kernel;
 import java.net.UnknownHostException;
 import java.util.List;
 import java.util.NoSuchElementException;
+import java.util.logging.Level;
 import java.io.IOException;
 import java.io.ObjectOutputStream;
 import java.io.OutputStream;
@@ -103,8 +104,7 @@ public class Agent implements _Agent {
 	}
 
 	protected void move(URI url) throws IOException {
-		System.out.println("JE NE BOUCLE PAS");
-
+		Starter.getLogger().log(Level.ALL, "\n Je m'en vais, salut ! \n");
 		Socket envoi = new Socket(url.getHost(), url.getPort());
 
 		OutputStream os = envoi.getOutputStream();
@@ -121,6 +121,15 @@ public class Agent implements _Agent {
 
 	public String toString() {
 		return "route : " + this.route.toString() + " | agent serveur : " + this.as.toString();
+	}
+	
+
+	public Route getRoute() {
+		return route;
+	}
+
+	public void setRoute(Route route) {
+		this.route = route;
 	}
 
 	@Override
