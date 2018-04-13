@@ -41,6 +41,8 @@ public class Starter {
 	protected BAMServerClassLoader loader;
 	/** la classe du server : jus.aor.mobilagent.kernel.Server */
 	protected Class<jus.aor.mobilagent.kernel.Server> classe;
+	
+	public static long duree;
 
 	/**
 	 * 
@@ -81,6 +83,7 @@ public class Starter {
 					doc.getElementsByTagName("port").item(0).getAttributes().getNamedItem("value").getNodeValue());
 			// Création du serveur
 			createServer(port, args[1]);
+			duree = System.currentTimeMillis();
 			// ajout des services
 			 addServices();
 			// déploiement d'agents
@@ -143,6 +146,16 @@ public class Starter {
 		} catch (Exception e) {
 			logger.log(Level.FINE, " erreur durant l'ajout d'un service", e);
 		}
+	}
+	
+	
+
+	public static long getDuree() {
+		return duree;
+	}
+
+	public static void setDuree(long duree) {
+		Starter.duree = duree;
 	}
 
 	/**

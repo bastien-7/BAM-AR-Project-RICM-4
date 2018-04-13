@@ -111,7 +111,9 @@ public class LookForHotel extends Agent {
 				break;
 			}
 		}
-		return result;
+		long finduree = System.currentTimeMillis();
+		long resultduree = finduree - Starter.getDuree();
+		return result + "\n durée de l'exécution : " + resultduree;
 	}
 
 	/**
