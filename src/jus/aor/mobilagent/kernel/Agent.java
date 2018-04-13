@@ -120,7 +120,7 @@ public class Agent implements _Agent {
 	}
 
 	public String toString() {
-		return "route : " + this.route.toString() + " | agent serveur : " + this.as.toString();
+		return "";
 	}
 	
 

@@ -33,7 +33,7 @@ public class LookForHotel{
 	public LookForHotel(String[] args) throws RemoteException, MalformedURLException, NotBoundException{
 		localisation = args[0];
 		
-		for (int i = 0; i<2; i++) {
+		for (int i = 0; i<4; i++) {
 			_Chaine obj = (_Chaine) java.rmi.Naming.lookup("//localhost:"+(port+i)+"/BAM-RMI");
 			chaines.add(obj);			
 		}
@@ -55,7 +55,7 @@ public class LookForHotel{
 		
 		ArrayList<Hotel> hotels_a_ajouter;
 		
-		for (int i =0; i<2; i++) {
+		for (int i =0; i<4; i++) {
 			hotels_a_ajouter = (ArrayList<Hotel>) chaines.get(i).get(localisation);
 			hotels.addAll(hotels_a_ajouter);			
 		}

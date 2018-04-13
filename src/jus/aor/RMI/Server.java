@@ -29,7 +29,7 @@ public static void main(final String args[]) {
     //  Mise en place du Registery
     try{
 //    	Registry registry;
-    	for (int i = 0; i < 2; i++) {
+    	for (int i = 0; i < 4; i++) {
             LocateRegistry.createRegistry(port+i);
             _Chaine chaine = new Chaine();
             ((Chaine) chaine).Recuperation_hotel("DataStore/Hotels"+(i+1)+".xml");

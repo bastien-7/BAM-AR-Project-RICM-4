@@ -56,7 +56,7 @@ final class AgentServer implements Runnable {
 			while (true) {
 				client = s.accept();
 				Agent agent = (Agent) this.getAgent(client);
-				agent.reInit(this, this.name);
+				// agent.reInit(this, this.name);
 				new Thread(agent).start();
 				client.close();
 			}
@@ -67,9 +67,9 @@ final class AgentServer implements Runnable {
 		} catch (ClassNotFoundException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
-		} catch (URISyntaxException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+//		} catch (URISyntaxException e) {
+//			// TODO Auto-generated catch block
+//			e.printStackTrace();
 		}
 
 	}
@@ -136,10 +136,17 @@ final class AgentServer implements Runnable {
 		loader.integrateCode(j);
 
 		Agent agent = (Agent) ais.readObject();
-		if (agent!=null) {
-			Starter.getLogger().log(Level.ALL,   "Un agent vient d'arriver sur " + this.name + " sa route est : " + agent.route());
+		try {
+			agent.reInit(this, this.name);
+		} catch (URISyntaxException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
 		}
-		
+		if (agent != null) {
+			Starter.getLogger().log(Level.ALL,
+					"Un agent vient d'arriver sur " + this.name + " sa route est : " + agent.route());
+		}
+
 		is.close();
 		ais.close();
 
