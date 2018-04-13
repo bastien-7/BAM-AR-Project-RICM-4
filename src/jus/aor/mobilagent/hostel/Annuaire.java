@@ -17,6 +17,18 @@ import org.xml.sax.SAXException;
 public class Annuaire implements _Annuaire{
 
 	public Annuaire(Object... args) {
+		try {
+			recupAnnuaire((String) args[0]);
+		} catch (ParserConfigurationException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (SAXException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 		// TODO Auto-generated constructor stub
 	}
 
@@ -66,7 +78,8 @@ public class Annuaire implements _Annuaire{
 	@Override
 	public Numero call(Object... params) throws IllegalArgumentException {
 		// TODO Auto-generated method stub
-		return null;
+		Numero retour = this.get((String) params[0]);
+		return retour;
 	}
 
 }

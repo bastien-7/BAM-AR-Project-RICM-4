@@ -100,7 +100,7 @@ public class Agent implements _Agent {
 	}
 
 	protected String route() {
-		return this.route.toString();
+		return this.route.toString()+"\n"+this.toString();
 	}
 
 	protected void move(URI url) throws IOException {

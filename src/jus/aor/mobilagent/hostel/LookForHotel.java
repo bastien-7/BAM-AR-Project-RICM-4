@@ -8,6 +8,7 @@ import java.rmi.NotBoundException;
 import java.rmi.RemoteException;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Map.Entry;
 import java.util.logging.Level;
 
 import jus.aor.mobilagent.kernel.Agent;
@@ -73,7 +74,7 @@ public class LookForHotel extends Agent {
 			// TODO Auto-generated method stub
 			Starter.getLogger().log(Level.ALL, "Execution de l'action findHotel\n\n LookForHotel !");
 			_Service<?> hotel = getService("Hotels");
-			hotels.addAll((ArrayList<Hotel>) hotel.call(localisation)) ;
+			hotels.addAll((ArrayList<Hotel>) hotel.call(localisation));
 
 		}
 		// ...
@@ -90,12 +91,31 @@ public class LookForHotel extends Agent {
 		public void execute() {
 			// TODO Auto-generated method stub
 			Starter.getLogger().log(Level.ALL, "Execution de l'action findTelephone\n\n LookForHotel !");
+			_Service<?> telephone = getService("Telephones");
+			for (int i = 0; i < hotels.size(); i++) {
+				numero_hotel.put(hotels.get(i).name, (Numero) telephone.call(hotels.get(i).name));
+			}
+
 		}
 		// ...
 	};
 
+	public String toString() {
+		String result = "";
+		int i=0;
+		for(Entry<String, Numero> ent : numero_hotel.entrySet()) {
+			result += ent.toString()+"\n";
+			
+			i++;
+			if(i==5) {
+				break;
+			}
+		}
+		return result;
+	}
+
 	/**
-	 * réalise une intérrogation
+	 * réalise une interrogation
 	 * 
 	 * @return la durée de l'interrogation
 	 * @throws RemoteException
