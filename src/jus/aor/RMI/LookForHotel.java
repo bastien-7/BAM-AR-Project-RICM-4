@@ -39,7 +39,7 @@ public class LookForHotel{
 		}
 		System.out.println("Chaines trouvés : " + chaines.size());
 
-		this.annuaire = (_Annuaire) java.rmi.Naming.lookup("//localhost:2003/BAM-RMI");
+		this.annuaire = (_Annuaire) java.rmi.Naming.lookup("//localhost:1103/BAM-RMI");
 		//System.out.println("Les annuaires trouvés : " + annuaire.toString());
 
 		
