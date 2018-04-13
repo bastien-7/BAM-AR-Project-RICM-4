@@ -12,7 +12,7 @@ public class Server{
 public static void main(final String args[]) {
 	
 	int port = 1099;
-	//annuaire 2003
+	//annuaire 1103
     /*if (args.length == 1){
 //        System.out.println("Server <num port> <nombre chaines>");
     	System.out.println("Server <num port>");
@@ -36,11 +36,11 @@ public static void main(final String args[]) {
         	java.rmi.Naming.bind("//localhost:"+(port+i)+"/BAM-RMI", chaine );
         	System.out.println("Chaine n°" + i + " registry created : //localhost:"+(port+i)+"/BAM-RMI\n");
         	}
-    	LocateRegistry.createRegistry(2003);
+    	LocateRegistry.createRegistry(1103);
     	_Annuaire annuaire = new Annuaire();
     	((Annuaire) annuaire).recupAnnuaire("DataStore/Annuaire.xml");
-    	java.rmi.Naming.bind("//localhost:2003"+"/BAM-RMI", annuaire);
-    	System.out.println("Annuaire registry created: //localhost:2003"+"/BAM-RMI\n");
+    	java.rmi.Naming.bind("//localhost:1103"+"/BAM-RMI", annuaire);
+    	System.out.println("Annuaire registry created: //localhost:1103"+"/BAM-RMI\n");
 //        System.out.println(java.rmi.Naming.list("BAM-RMI"));
 
     }
